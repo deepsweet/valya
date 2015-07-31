@@ -72,7 +72,7 @@ render() {
                 console.log('validation start');
             },
             onEnd: (isValid) => {
-                console.log('validation end:'. isValid);
+                console.log('validation end:', isValid);
             },
             validators: [
                 {
