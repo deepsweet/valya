@@ -79,5 +79,5 @@ export default Base => {
                 this.props.children
             );
         }
-    }
-}
+    };
+};
