@@ -9,13 +9,15 @@ export default class extends React.Component {
             isValid: true,
             errorMessage: null
         };
-
-        this._validate(props.value);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
-            this._validate(nextProps.value);
+            this.setState({
+                inProgress: true
+            }, () => {
+                this._validate(nextProps.value);
+            });
         }
     }
 
@@ -52,9 +54,7 @@ export default class extends React.Component {
     }
 
     _validate(value) {
-        this.setState({
-            inProgress: true
-        }, this._callOnStart);
+        this._callOnStart;
 
         Promise
             .all(
