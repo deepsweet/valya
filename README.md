@@ -71,8 +71,8 @@ render() {
             onStart: () => {
                 console.log('validation start');
             },
-            onEnd: () => {
-                console.log('validation end');
+            onEnd: (isValid) => {
+                console.log('validation end:'. isValid);
             },
             validators: [
                 {
