@@ -54,7 +54,7 @@ export default class extends React.Component {
     }
 
     _validate(value) {
-        this._callOnStart;
+        this._callOnStart();
 
         Promise
             .all(
