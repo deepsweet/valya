@@ -89,7 +89,7 @@ render() {
                 }
             ]
         },
-        React.dom.input({
+        React.DOM.input({
             value: this.state.value,
             onChange: ::this._onInputChange
         })
