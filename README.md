@@ -3,7 +3,7 @@
 [![coverage](http://img.shields.io/coveralls/deepsweet/valya/master.svg?style=flat-square)](https://coveralls.io/r/deepsweet/valya)
 [![deps](http://img.shields.io/david/deepsweet/valya.svg?style=flat-square)](https://david-dm.org/deepsweet/valya)
 
-Valya is just a [Higher-Order Component](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750) for validation in React that can be used as an [ES7 decorator](https://github.com/wycats/javascript-decorators).
+Valya is just a tiny [Higher-Order Component](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750) for validation in React that can be used as an [ES7 decorator](https://github.com/wycats/javascript-decorators).
 
 ## Install
 
@@ -11,7 +11,9 @@ Valya is just a [Higher-Order Component](https://medium.com/@dan_abramov/mixins-
 npm i -S valya
 ```
 
-## Validator
+## Example
+
+### Creating `Validator`
 
 ```js
 // validator.es6
@@ -61,7 +63,7 @@ Your `Validator` will receive the following props:
 * `isValid`
 * `validationErrorMessage`
 
-## Usage
+### Usage
 
 ```js
 // app.es6
