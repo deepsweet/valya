@@ -58,6 +58,41 @@ class Validator extends React.Component {
 export default Validator;
 ```
 
+### Creating `Validator` in `JSX`
+
+```js
+import React from 'react';
+import Valya from 'valya';
+
+@Valya
+class Validator extends React.Component {
+    static displayName = 'Validator';
+
+    _renderError() {
+        if (this.props.isValid) {
+          return null;
+        }
+
+        return (
+            <span className="validator__error" key="error">
+                {this.props.validationErrorMessage}
+            </span>
+        );
+    }
+
+    render () {
+        return (
+            <span className="validator">
+                <span className="validator__target" key="target">
+                    {this.props.children}
+                </span>
+                {this._renderError()}
+            </span>
+        );
+    }
+}
+```
+
 Your `Validator` will receive the following props:
 * `isValidating`
 * `isValid`
@@ -102,6 +137,48 @@ render() {
             value: this.state.value,
             onChange: ::this._onInputChange
         })
+    );
+}
+```
+
+### Usage in `JSX`
+
+```js
+// app.es6
+_onInputChange(e) {
+    this.setState({
+        value: e.target.value
+    });
+}
+
+render () {
+    return (
+        <Validator
+            value={this.state.value}
+            onStart={() => {
+                console.log('Validation start');
+            }}
+            onEnd={(isValid, message) => {
+                console.log('validation end:', isValid, message);
+            }}
+            validators={[
+                {
+                    validator: (value, params) => {
+                        if (value) {
+                            return Promise.resolve();
+                        }
+    
+                        return Promise.reject(params.message);
+                    },
+                    params: {
+                        message: 'Field is required'
+                    }
+                }
+            ]}>
+            <div>
+                <input type="text" value={this.state.value} onChange={::this._onInputChange} />
+            </div>
+        </Validator>
     );
 }
 ```
