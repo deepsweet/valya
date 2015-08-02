@@ -16,7 +16,6 @@ npm i -S valya
 ### Creating `Validator`
 
 ```js
-// validator.es6
 import React from 'react';
 import Valya from 'valya';
 
@@ -26,36 +25,27 @@ class Validator extends React.Component {
 
     _renderError() {
         if (this.props.isValid) {
-            return null;
+          return null;
         }
 
-        return React.DOM.span(
-            {
-                className: 'validator__error',
-                key: 'error'
-            },
-            this.props.validationErrorMessage
+        return (
+            <span className="validator__error" key="error">
+                {this.props.validationErrorMessage}
+            </span>
         );
     }
 
-    render() {
-        return React.DOM.span(
-            {
-                className: 'validator'
-            },
-            React.DOM.span(
-                {
-                    className: 'validator__target',
-                    key: 'target'
-                },
-                this.props.children
-            ),
-            this._renderError()
+    render () {
+        return (
+            <span className="validator">
+                <span className="validator__target" key="target">
+                    {this.props.children}
+                </span>
+                {this._renderError()}
+            </span>
         );
     }
 }
-
-export default Validator;
 ```
 
 Your `Validator` will receive the following props:
@@ -66,42 +56,40 @@ Your `Validator` will receive the following props:
 ### Usage
 
 ```js
-// app.es6
 _onInputChange(e) {
     this.setState({
         value: e.target.value
     });
 }
 
-render() {
-    return Validator(
-        {
-            value: this.state.value,
-            onStart: () => {
-                console.log('validation start');
-            },
-            onEnd: (isValid, message) => {
+render () {
+    return (
+        <Validator
+            value={this.state.value}
+            onStart={() => {
+                console.log('Validation start');
+            }}
+            onEnd={(isValid, message) => {
                 console.log('validation end:', isValid, message);
-            },
-            validators: [
+            }}
+            validators={[
                 {
                     validator: (value, params) => {
                         if (value) {
                             return Promise.resolve();
                         }
-
+    
                         return Promise.reject(params.message);
                     },
                     params: {
                         message: 'Field is required'
                     }
                 }
-            ]
-        },
-        React.DOM.input({
-            value: this.state.value,
-            onChange: ::this._onInputChange
-        })
+            ]}>
+            <div>
+                <input type="text" value={this.state.value} onChange={::this._onInputChange} />
+            </div>
+        </Validator>
     );
 }
 ```
