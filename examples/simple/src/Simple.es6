@@ -73,17 +73,21 @@ class Simple extends React.Component {
         ];
     }
 
+    onStart () {
+        console.log('Validation start');
+    }
+
+    onEnd (isValid, message) {
+        console.log('validation end:', isValid, message);
+    }
+
     render () {
         return (
             <Validator
                 value={this.state.value}
-                onStart={() => {
-                    console.log('Validation start');
-                }}
-                onEnd={(isValid, message) => {
-                    console.log('validation end:', isValid, message);
-                }}
-                validators={this.validators()}>
+                onStart={this.props.onStart || ::this.onStart}
+                onEnd={this.props.onEnd || ::this.onEnd}
+                validators={this.props.validators || this.validators()}>
                 <div>
                     <input type="text" value={this.state.value} onChange={::this._onInputChange} />
                 </div>
@@ -92,6 +96,9 @@ class Simple extends React.Component {
     }
 }
 
-const mountNode = document.querySelector('.page');
+if (!global) {
+    const mountNode = document.querySelector('.page');
+    React.render(<Simple />, mountNode);
+}
 
-React.render(<Simple />, mountNode);
+export default { Simple, Validator };
