@@ -25,7 +25,7 @@ class Validator extends React.Component {
 
     _renderError() {
         if (this.props.isValid) {
-          return null;
+            return null;
         }
 
         return (
@@ -78,7 +78,7 @@ render () {
                         if (value) {
                             return Promise.resolve();
                         }
-    
+
                         return Promise.reject(params.message);
                     },
                     params: {
