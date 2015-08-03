@@ -24,7 +24,7 @@ class Validator extends React.Component {
     static displayName = 'Validator';
 
     _renderError() {
-        if (this.props.isValid) {
+        if (!this.props.enabled || this.props.isValid) {
             return null;
         }
 
@@ -49,6 +49,7 @@ class Validator extends React.Component {
 ```
 
 Your `Validator` will receive the following props:
+* `enabled`
 * `isValidating`
 * `isValid`
 * `validationErrorMessage`
@@ -74,7 +75,7 @@ render () {
             }}
             validators={[
                 {
-                    validator: (value, params) => {
+                    validator(value, params) {
                         if (value) {
                             return Promise.resolve();
                         }
@@ -94,4 +95,10 @@ render () {
 }
 ```
 
-Every `validator` is just a function that must return a `promise`, so Valya doesn't really cares about what is happening in validators.
+You can pass the following props:
+* `enabled <boolean>` – control whether Valya should be enabled (`true` by default)
+* `initialValidation` – control whether Valya should validate first right in constructor (`false` by default)
+* `value <any>` – current target's value to validate
+* `onStart <Function>` – "on validation start" callback
+* `onEnd <Function>` – "on validation end" callback
+* `validators <Array>` – array of "validators": every `validator` is just a function that must return a `promise`, so Valya doesn't really cares about what is happening inside.
