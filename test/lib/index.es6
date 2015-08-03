@@ -59,46 +59,124 @@ describe('Valya', () => {
                 }
             ];
 
-            it('valid', done => {
-                const render = createRender();
-                const onStartCallback = sinon.spy();
-                const props = {
-                    value: '',
-                    onStart: onStartCallback,
-                    onEnd: (isValid, errorMessage) => {
-                        expect(isValid).to.be.true;
-                        expect(errorMessage).to.be.undefied;
-                        done();
-                    },
-                    validators
-                };
+            describe('disabled', () => {
+                it('initial', () => {
+                    const onStartCallback = sinon.spy();
+                    const onEndCallback = sinon.spy();
+                    const props = {
+                        value: 'hello',
+                        enabled: false,
+                        initialValidation: true,
+                        onStart: onStartCallback,
+                        onEnd: onEndCallback,
+                        validators
+                    };
 
-                render(Validator, props);
-                props.value = 'hello';
-                render(Validator, props);
+                    renderOnce(Validator, props);
+                    expect(onStartCallback.callCount).to.be.equal(0);
+                });
 
-                expect(onStartCallback.calledOnce).to.be.true;
+                it('value change', () => {
+                    const render = createRender();
+                    const onStartCallback = sinon.spy();
+                    const onEndCallback = sinon.spy();
+                    const props = {
+                        value: 'hello',
+                        enabled: false,
+                        onStart: onStartCallback,
+                        onEnd: onEndCallback,
+                        validators
+                    };
+
+                    render(Validator, props);
+                    props.value = '';
+                    render(Validator, props);
+
+                    expect(onStartCallback.callCount).to.be.equal(0);
+                });
             });
 
-            it('invalid', done => {
-                const render = createRender();
-                const onStartCallback = sinon.spy();
-                const props = {
-                    value: 'hello',
-                    onStart: onStartCallback,
-                    onEnd: (isValid, errorMessage) => {
-                        expect(isValid).to.be.false;
-                        expect(errorMessage).to.be.equal('Field is required');
-                        done();
-                    },
-                    validators
-                };
+            describe('initial', () => {
+                it('valid', done => {
+                    const onStartCallback = sinon.spy();
+                    const props = {
+                        value: 'hello',
+                        initialValidation: true,
+                        onStart: onStartCallback,
+                        onEnd: (isValid, errorMessage) => {
+                            expect(isValid).to.be.true;
+                            expect(errorMessage).to.be.undefied;
+                            done();
+                        },
+                        validators
+                    };
 
-                render(Validator, props);
-                props.value = '';
-                render(Validator, props);
+                    renderOnce(Validator, props);
+                    expect(onStartCallback.calledOnce).to.be.true;
+                });
 
-                expect(onStartCallback.calledOnce).to.be.true;
+                it('invalid', done => {
+                    const render = createRender();
+                    const onStartCallback = sinon.spy();
+                    const props = {
+                        value: '',
+                        initialValidation: true,
+                        onStart: onStartCallback,
+                        onEnd: (isValid, errorMessage) => {
+                            expect(isValid).to.be.false;
+                            expect(errorMessage).to.be.equal('Field is required');
+                            done();
+                        },
+                        validators
+                    };
+
+                    render(Validator, props);
+                    expect(onStartCallback.calledOnce).to.be.true;
+                });
+            });
+
+            describe('value change', () => {
+                it('valid', done => {
+                    const render = createRender();
+                    const onStartCallback = sinon.spy();
+                    const props = {
+                        value: '',
+                        onStart: onStartCallback,
+                        onEnd: (isValid, errorMessage) => {
+                            expect(isValid).to.be.true;
+                            expect(errorMessage).to.be.undefied;
+                            done();
+                        },
+                        validators
+                    };
+
+                    render(Validator, props);
+                    props.value = 'hello';
+                    render(Validator, props);
+
+                    expect(onStartCallback.calledOnce).to.be.true;
+                });
+
+                it('invalid', done => {
+                    const render = createRender();
+                    const onStartCallback = sinon.spy();
+                    const props = {
+                        value: 'hello',
+                        onStart: onStartCallback,
+                        onEnd: (isValid, errorMessage) => {
+                            expect(isValid).to.be.false;
+                            expect(errorMessage).to.be.equal('Field is required');
+                            done();
+                        },
+                        validators
+                    };
+
+                    render(Validator, props);
+                    props.value = '';
+                    render(Validator, props);
+
+                    expect(onStartCallback.calledOnce).to.be.true;
+                });
             });
         });
     });

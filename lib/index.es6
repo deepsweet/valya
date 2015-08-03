@@ -3,6 +3,10 @@ import React from 'react';
 export default Base => {
     return class extends React.Component {
         static displayName = 'Valya';
+        static defaultProps = {
+            enabled: true,
+            initialValidation: false
+        };
 
         constructor(props, context) {
             super(props, context);
@@ -12,10 +16,22 @@ export default Base => {
                 isValid: true,
                 validationErrorMessage: null
             };
+
+            if (props.enabled && props.initialValidation) {
+                this.state.isValidating = true;
+
+                this._validate(props.value);
+            }
         }
 
         componentWillReceiveProps(nextProps) {
-            if (nextProps.value !== this.props.value) {
+            if (
+                nextProps.enabled &&
+                (
+                    nextProps.enabled !== this.props.enabled ||
+                    nextProps.value !== this.props.value
+                )
+            ) {
                 this.setState({
                     isValidating: true
                 }, () => {
