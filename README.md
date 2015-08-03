@@ -98,7 +98,7 @@ render () {
 
 You can pass the following props:
 * `enabled <boolean>` – control whether Valya should be enabled (`true` by default)
-* `initialValidation` – control whether Valya should validate first right in constructor (`false` by default)
+* `initialValidation <boolean>` – control whether Valya should validate first right in constructor (`false` by default)
 * `value <any>` – current target's value to validate
 * `onStart <Function>` – "on validation start" callback
 * `onEnd <Function>` – "on validation end" callback
