@@ -1,6 +1,6 @@
 {
   "name": "valya",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Higher-order component for validation in React",
   "keywords": [ "react", "validation", "validator" ],
   "homepage": "https://github.com/deepsweet/valya",
