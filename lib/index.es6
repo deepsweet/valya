@@ -59,16 +59,16 @@ export default Base => {
         _validate(value) {
             this._callOnStart();
 
-            Promise
-                .all(
-                    this.props.validators.map(validator => {
-                        return validator.validator(value, validator.params);
-                    })
-                )
-                .then(
-                    this._onResolve.bind(this, value),
-                    this._onCatch.bind(this, value)
-                );
+            const validators = this.props.validators.reduce((sequence, next) => {
+                return sequence.then(() => {
+                    return next.validator(value, next.params);
+                });
+            }, Promise.resolve());
+
+            validators.then(
+                this._onResolve.bind(this, value),
+                this._onCatch.bind(this, value)
+            );
         }
 
         render() {
