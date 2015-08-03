@@ -48,8 +48,9 @@ class Validator extends React.Component {
 }
 ```
 
-Your `Validator` will receive the following props:
+Your `Validator` will receive the following "special" props:
 * `enabled`
+* `initialValidation`
 * `isValidating`
 * `isValid`
 * `validationErrorMessage`
