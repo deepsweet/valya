@@ -22,6 +22,7 @@
     "husky": "0.9.x",
     "mocha": "2.2.x",
     "chai": "3.2.x",
+    "sinon": "1.15.x",
     "isparta": "3.0.x",
     "isparta-loader": "0.2.x",
     "coveralls": "2.11.x",
