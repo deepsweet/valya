@@ -2,6 +2,8 @@ import React from 'react';
 
 export default Base => {
     return class extends React.Component {
+        static displayName = 'Valya';
+
         constructor(props, context) {
             super(props, context);
 
