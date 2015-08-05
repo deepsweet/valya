@@ -32,14 +32,16 @@
     "babel": "5.8.x",
     "babel-core": "5.8.x",
     "jsdom": "5.6.x",
-    "mocha-jsdom": "1.0.x"
+    "mocha-jsdom": "1.0.x",
+    "chokidar-cli": "1.0.x"
   },
   "scripts": {
     "build": "rm -rf build/ && babel lib/ -d build/",
     "dev": "npm run build -- -w",
     "lint": "eslint --ext .es6 lib/ test/",
 
-    "coverage": "rm -rf coverage/ && isparta cover _mocha -i lib/*.es6 --report lcovonly -- -r babel/register test/setup.es6 test/lib/*.es6",
+    "coverage": "rm -rf coverage/ && isparta cover _mocha -i lib/*.es6 -- -r babel/register test/setup.es6 test/lib/*.es6",
+    "coverage-dev": "chokidar 'test/lib/*.es6' -c 'npm run coverage' --initial",
     "test": "npm run lint && npm run coverage",
     "travis": "npm run test && cat coverage/lcov.info | coveralls",
 
