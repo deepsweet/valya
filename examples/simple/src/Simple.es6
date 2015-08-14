@@ -96,9 +96,9 @@ class Simple extends React.Component {
     }
 }
 
-if (!global) {
+if (typeof window !== 'undefined') {
     const mountNode = document.querySelector('.page');
     React.render(<Simple />, mountNode);
+} else {
+    module.exports = { Simple, Validator };
 }
-
-export default { Simple, Validator };
