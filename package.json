@@ -44,7 +44,7 @@
     "test": "npm run lint && npm run coverage",
     "travis": "npm run test && cat coverage/lcov.info | coveralls",
 
-    "prepush": "npm run test",
+    "prepush": "npm run lint",
     "prepublish": "npm run build"
   },
   "engines": {
