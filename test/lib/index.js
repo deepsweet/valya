@@ -93,15 +93,13 @@ test('disabled + init', assert => {
 
     renderOnce(Validator, props);
 
-    assert.equal(
-        onStartCallback.callCount,
-        0,
+    assert.true(
+        onStartCallback.notCalled,
         'onStartCallback must not be called'
     );
 
-    assert.equal(
-        onEndCallback.callCount,
-        0,
+    assert.true(
+        onEndCallback.notCalled,
         'onEndCallback must not be called'
     );
 
@@ -126,15 +124,15 @@ test('disabled + value change', assert => {
 
     render(Validator, props);
 
-    assert.equal(
-        onStartCallback.callCount,
-        0,
+    console.log(onStartCallback);
+
+    assert.true(
+        onStartCallback.notCalled,
         'onStartCallback must not be called'
     );
 
-    assert.equal(
-        onEndCallback.callCount,
-        0,
+    assert.true(
+        onEndCallback.notCalled,
         'onEndCallback must not be called'
     );
 
@@ -192,9 +190,8 @@ test('initial validation + valid + change value while validating', assert => {
     setTimeout(() => {
         const validator = render(Validator, props);
 
-        assert.equal(
-            onStartCallback.callCount,
-            2,
+        assert.true(
+            onStartCallback.calledTwice,
             'onStartCallback must be called twice'
         );
 
@@ -233,9 +230,8 @@ test('initial validation + invalid + change value while validating', assert => {
     setTimeout(() => {
         const validator = render(Validator, props);
 
-        assert.equal(
-            onStartCallback.callCount,
-            2,
+        assert.true(
+            onStartCallback.calledTwice,
             'onStartCallback must be called twice'
         );
 
