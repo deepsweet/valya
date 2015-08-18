@@ -171,6 +171,121 @@ test('initial validation + valid', assert => {
     );
 });
 
+test('initial validation + valid + change value while validating', assert => {
+    const render = createRender();
+    const onStartCallback = spy();
+    const onEndCallback = spy();
+    const props = {
+        value: 'hello',
+        initialValidation: true,
+        onStart: onStartCallback,
+        onEnd: onEndCallback,
+        validators
+    };
+
+    render(Validator, props);
+
+    props.value = '';
+
+    render(Validator, props);
+
+    setTimeout(() => {
+        const validator = render(Validator, props);
+
+        assert.equal(
+            onStartCallback.callCount,
+            2,
+            'onStartCallback must be called twice'
+        );
+
+        assert.true(
+            onEndCallback.calledOnce,
+            'onEndCallback must be called once'
+        );
+
+        assert.true(
+            onEndCallback.calledWith(false, validators[0].params.message),
+            'onEndCallback must be called with isValid = true and errorMessage = null'
+        );
+
+        assert.end();
+    }, 0);
+});
+
+test('initial validation + invalid + change value while validating', assert => {
+    const render = createRender();
+    const onStartCallback = spy();
+    const onEndCallback = spy();
+    const props = {
+        value: '',
+        initialValidation: true,
+        onStart: onStartCallback,
+        onEnd: onEndCallback,
+        validators
+    };
+
+    render(Validator, props);
+
+    props.value = 'hello';
+
+    render(Validator, props);
+
+    setTimeout(() => {
+        const validator = render(Validator, props);
+
+        assert.equal(
+            onStartCallback.callCount,
+            2,
+            'onStartCallback must be called twice'
+        );
+
+        assert.true(
+            onEndCallback.calledOnce,
+            'onEndCallback must be called once'
+        );
+
+        assert.true(
+            onEndCallback.calledWith(true, null),
+            'onEndCallback must be called with isValid = true and errorMessage = null'
+        );
+
+        assert.end();
+    }, 0);
+});
+
+test('initial validation + valid + no start/end', assert => {
+    const render = createRender();
+    const props = {
+        value: 'hello',
+        initialValidation: true,
+        validators
+    };
+
+    render(Validator, props);
+
+    setTimeout(() => {
+        const validator = render(Validator, props);
+
+        assert.true(
+            validator.props.isValid,
+            'isValid must be true'
+        );
+
+        assert.false(
+            validator.props.isValidating,
+            'isValidating must be false'
+        );
+
+        assert.equal(
+            validator.props.validationErrorMessage,
+            null,
+            'validationErrorMessage must be null'
+        );
+
+        assert.end();
+    }, 0);
+});
+
 test('initial validation + invalid', assert => {
     const render = createRender();
     const onStartCallback = spy();
