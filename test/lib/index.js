@@ -124,8 +124,6 @@ test('disabled + value change', assert => {
 
     render(Validator, props);
 
-    console.log(onStartCallback);
-
     assert.true(
         onStartCallback.notCalled,
         'onStartCallback must not be called'
