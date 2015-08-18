@@ -5,5 +5,5 @@ reporting:
     print: none
     reports:
         - lcovonly
-        - text
+        - html
     dir: ./coverage

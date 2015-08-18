@@ -20,28 +20,27 @@
   },
   "devDependencies": {
     "husky": "0.9.x",
-    "mocha": "2.2.x",
-    "chai": "3.2.x",
+    
+    "jsdom": "5.6.x",
+    "tape": "4.2.x",
+    "tap-spec": "4.0.x",
     "sinon": "1.15.x",
     "isparta": "3.0.x",
-    "isparta-loader": "0.2.x",
     "coveralls": "2.11.x",
+
     "eslint": "0.24.x",
     "babel-eslint": "4.0.x",
     "eslint-plugin-babel": "1.2.x",
     "babel": "5.8.x",
-    "babel-core": "5.8.x",
-    "jsdom": "5.6.x",
-    "mocha-jsdom": "1.0.x",
-    "chokidar-cli": "1.0.x"
+    "babel-core": "5.8.x"
   },
   "scripts": {
     "build": "rm -rf build/ && babel lib/ -d build/",
     "dev": "npm run build -- -w",
-    "lint": "eslint --ext .es6 lib/ test/",
+    "lint": "eslint lib/ test/",
 
-    "coverage": "rm -rf coverage/ && isparta cover _mocha -i lib/*.es6 -- -r babel/register test/setup.es6 test/lib/*.es6",
-    "coverage-dev": "chokidar 'test/lib/*.es6' -c 'npm run coverage' --initial",
+    "unit": "babel-node ./node_modules/.bin/tape test/lib/*.js | tap-spec",
+    "coverage": "rm -rf coverage/ && babel-node ./node_modules/.bin/isparta cover tape -- test/lib/*.js | tap-spec",
     "test": "npm run lint && npm run coverage",
     "travis": "npm run test && cat coverage/lcov.info | coveralls",
 
