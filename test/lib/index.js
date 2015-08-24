@@ -186,8 +186,6 @@ test('initial validation + valid + change value while validating', assert => {
     render(Validator, props);
 
     setTimeout(() => {
-        const validator = render(Validator, props);
-
         assert.true(
             onStartCallback.calledTwice,
             'onStartCallback must be called twice'
@@ -226,8 +224,6 @@ test('initial validation + invalid + change value while validating', assert => {
     render(Validator, props);
 
     setTimeout(() => {
-        const validator = render(Validator, props);
-
         assert.true(
             onStartCallback.calledTwice,
             'onStartCallback must be called twice'
