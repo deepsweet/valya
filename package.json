@@ -19,18 +19,18 @@
     "babel-runtime": "5.8.x"
   },
   "devDependencies": {
-    "husky": "0.9.x",
+    "husky": "0.10.x",
     "rimraf": "2.4.x",
 
-    "jsdom": "6.1.x",
+    "jsdom": "6.5.x",
     "tape": "4.2.x",
     "tap-spec": "4.1.x",
     "sinon": "1.16.x",
     "isparta": "3.0.x",
     "coveralls": "2.11.x",
 
-    "eslint": "1.2.x",
-    "babel-eslint": "4.0.x",
+    "eslint": "1.4.x",
+    "babel-eslint": "4.1.x",
     "eslint-plugin-babel": "2.1.x",
     "babel": "5.8.x",
     "babel-core": "5.8.x"
