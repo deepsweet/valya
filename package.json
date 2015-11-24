@@ -15,7 +15,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "react": "0.13.x",
+    "react": "0.14.x",
     "babel-runtime": "5.8.x"
   },
   "devDependencies": {
