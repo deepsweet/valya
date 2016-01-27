@@ -1,5 +1,8 @@
 ---
   extends:
-    - "rebem/configs/common"
-    - "rebem/configs/babel"
-    - "rebem/configs/react"
+    - rebem/configs/common
+    - rebem/configs/babel
+    - rebem/configs/react
+
+  rules:
+    react/forbid-prop-types: 0
