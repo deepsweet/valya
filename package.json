@@ -36,6 +36,7 @@
     "start-clean": "0.1.x",
     "start-eslint": "0.2.x",
     "babel-eslint": ">5.0.0-beta1",
+    "eslint-config-rebem": "0.2.x",
     "eslint-plugin-babel": "3.0.x",
     "eslint-plugin-react": "3.16.x"
   },
