@@ -32,7 +32,10 @@ test('export', assert => {
 });
 
 test('init with default props', assert => {
-    const validator = renderOnce(Validator);
+    const validator = renderOnce(Validator, {
+        validators,
+        onEnd() {}
+    });
 
     assert.false(
         validator.props.isValidating,
@@ -45,9 +48,9 @@ test('init with default props', assert => {
     );
 
     assert.equal(
-        validator.props.validationErrorMessage,
+        validator.props.validationMessage,
         null,
-        'validationErrorMessage must be null'
+        'validationMessage must be null'
     );
 
     assert.end();
@@ -55,6 +58,8 @@ test('init with default props', assert => {
 
 test('init with mixed props', assert => {
     const validator = renderOnce(Validator, {
+        validators,
+        onEnd() {},
         test: true
     });
 
@@ -68,7 +73,7 @@ test('init with mixed props', assert => {
 
 test('init with children', assert => {
     const TestElement = React.createElement('div');
-    const validator = renderOnce(Validator, null, TestElement);
+    const validator = renderOnce(Validator, { validators, onEnd() {} }, TestElement);
 
     assert.equal(
         validator.props.children,
@@ -84,7 +89,7 @@ test('disabled + init', assert => {
     const onEndCallback = spy();
     const props = {
         value: 'hello',
-        enabled: false,
+        shouldValidate: false,
         initialValidation: true,
         onStart: onStartCallback,
         onEnd: onEndCallback,
@@ -112,7 +117,7 @@ test('disabled + value change', assert => {
     const onEndCallback = spy();
     const props = {
         value: 'hello',
-        enabled: false,
+        shouldValidate: false,
         onStart: onStartCallback,
         onEnd: onEndCallback,
         validators
@@ -143,15 +148,15 @@ test('initial validation + valid', assert => {
         value: 'hello',
         initialValidation: true,
         onStart: onStartCallback,
-        onEnd(isValid, errorMessage) {
+        onEnd({ isValid, validationMessage }) {
             assert.true(
                 isValid,
                 'onEndCallback must be called with isValid = true'
             );
 
             assert.true(
-                errorMessage === null,
-                'onEndCallback must be called with errorMessage = null'
+                validationMessage === null,
+                'onEndCallback must be called with validationMessage = null'
             );
 
             assert.end();
@@ -197,8 +202,13 @@ test('initial validation + valid + change value while validating', assert => {
         );
 
         assert.true(
-            onEndCallback.calledWith(false, validators[0].params.message),
-            'onEndCallback must be called with isValid = true and errorMessage = null'
+            onEndCallback.calledWithMatch({ isValid: false }),
+            'onEndCallback must be called with isValid = false'
+        );
+
+        assert.true(
+            onEndCallback.calledWithMatch({ validationMessage: validators[0].params.message }),
+            'onEndCallback must be called with validationMessage = validators[0].params.message'
         );
 
         assert.end();
@@ -235,8 +245,13 @@ test('initial validation + invalid + change value while validating', assert => {
         );
 
         assert.true(
-            onEndCallback.calledWith(true, null),
-            'onEndCallback must be called with isValid = true and errorMessage = null'
+            onEndCallback.calledWithMatch({ isValid: true }),
+            'onEndCallback must be called with isValid = true'
+        );
+
+        assert.true(
+            onEndCallback.calledWithMatch({ validationMessage: null }),
+            'onEndCallback must be called with validationMessage = null'
         );
 
         assert.end();
@@ -248,6 +263,7 @@ test('initial validation + valid + no start/end', assert => {
     const props = {
         value: 'hello',
         initialValidation: true,
+        onEnd() {},
         validators
     };
 
@@ -267,9 +283,9 @@ test('initial validation + valid + no start/end', assert => {
         );
 
         assert.equal(
-            validator.props.validationErrorMessage,
+            validator.props.validationMessage,
             null,
-            'validationErrorMessage must be null'
+            'validationMessage must be null'
         );
 
         assert.end();
@@ -283,15 +299,15 @@ test('initial validation + invalid', assert => {
         value: '',
         initialValidation: true,
         onStart: onStartCallback,
-        onEnd(isValid, errorMessage) {
+        onEnd({ isValid, validationMessage }) {
             assert.false(
                 isValid,
                 'onEndCallback must be called with isValid = false'
             );
 
             assert.true(
-                errorMessage === validators[0].params.message,
-                'onEndCallback must be called with errorMessage'
+                validationMessage === validators[0].params.message,
+                'onEndCallback must be called with validationMessage'
             );
 
             assert.end();
@@ -313,15 +329,15 @@ test('value change + valid', assert => {
     const props = {
         value: '',
         onStart: onStartCallback,
-        onEnd(isValid, errorMessage) {
+        onEnd({ isValid, validationMessage }) {
             assert.true(
                 isValid,
                 'onEndCallback must be called with isValid = true'
             );
 
             assert.true(
-                errorMessage === null,
-                'onEndCallback must be called with errorMessage = null'
+                validationMessage === null,
+                'onEndCallback must be called with validationMessage = null'
             );
 
             assert.end();
@@ -347,15 +363,15 @@ test('value change + invalid', assert => {
     const props = {
         value: 'hello',
         onStart: onStartCallback,
-        onEnd(isValid, errorMessage) {
+        onEnd({ isValid, validationMessage }) {
             assert.false(
                 isValid,
                 'onEndCallback must be called with isValid = false'
             );
 
             assert.true(
-                errorMessage === validators[0].params.message,
-                'onEndCallback must be called with errorMessage'
+                validationMessage === validators[0].params.message,
+                'onEndCallback must be called with validationMessage'
             );
 
             assert.end();

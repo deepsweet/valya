@@ -32,6 +32,7 @@
     "sinon": "1.17.x",
     "babel-istanbul": "0.6.x",
     "coveralls": "2.11.x",
+    "react-addons-test-utils": "0.14.x",
 
     "start": "1.2.x",
     "start-clean": "0.1.x",
@@ -48,7 +49,7 @@
     "build": "babel lib/ -d build/",
     "dev": "npm run build -- -w",
     "lint": "npm run task lint",
-    "pretest": "npm run lint",
+    "pretestt": "npm run lint",
     "test": "babel-node test/lib/*.js | tap-spec",
     "precoverage": "npm run task cleanCoverage",
     "coverage": "babel-node ./node_modules/.bin/babel-istanbul cover test/lib/*.js | tap-spec",
