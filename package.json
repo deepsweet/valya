@@ -26,7 +26,7 @@
     "babel-preset-react": "6.3.x",
 
     "husky": "0.10.x",
-    "jsdom": "7.2.x",
+    "jsdom": "8.0.x",
     "tape": "4.4.x",
     "tap-spec": "4.1.x",
     "sinon": "1.17.x",
