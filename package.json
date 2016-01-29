@@ -34,9 +34,10 @@
     "coveralls": "2.11.x",
     "react-addons-test-utils": "0.14.x",
 
-    "start": "1.2.x",
-    "start-clean": "0.1.x",
-    "start-eslint": "0.2.x",
+    "start": "2.0.x",
+    "start-clean": "0.2.x",
+    "start-eslint": "0.3.x",
+    "start-simple-logger": "0.2.x",
     "babel-eslint": ">5.0.0-beta1",
     "eslint-config-rebem": "0.2.x",
     "eslint-plugin-babel": "3.0.x",
