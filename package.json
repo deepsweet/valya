@@ -1,6 +1,6 @@
 {
   "name": "valya",
-  "version": "0.2.1",
+  "version": "1.0.0-alpha.1",
   "description": "Higher-order component for validation in React",
   "keywords": [
     "react",
