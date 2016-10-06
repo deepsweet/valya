@@ -16,7 +16,7 @@
   "main": "build/index.js",
   "files": [ "build/" ],
   "dependencies": {
-    "react": "0.14.x"
+    "react": "15.x"
   },
   "devDependencies": {
     "babel-cli": "6.4.x",
@@ -32,7 +32,7 @@
     "sinon": "1.17.x",
     "babel-istanbul": "0.6.x",
     "coveralls": "2.11.x",
-    "react-addons-test-utils": "0.14.x",
+    "react-addons-test-utils": "15.x",
 
     "start": "2.0.x",
     "start-clean": "0.2.x",
